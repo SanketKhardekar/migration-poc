@@ -3,7 +3,7 @@ const cors = require("cors");
 const { port } = require("./const");
 const app = express();
 const { exec } = require("child_process");
-
+require("./models");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
