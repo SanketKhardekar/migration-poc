@@ -16,29 +16,29 @@ app.use(
 //PORT for the application
 app.listen(`${port}`, async () => {
   console.log(`Server Listening at ${port}`);
-  // await checkAndRunMigration();
+  await checkAndRunMigration();
 });
 
-// async function checkAndRunMigration() {
-//   try {
-//     await new Promise((resolve, reject) => {
-//       const migrateProcess = exec(
-//         "npx sequelize-cli db:migrate",
-//         { env: process.env },
-//         (error, stdout, stderr) => {
-//           if (error) {
-//             console.error("Error:", stderr);
-//             resolve();
-//           } else {
-//             console.log("Migrations completed successfully:", stdout);
-//             resolve();
-//           }
-//         }
-//       );
-//       migrateProcess.stdout.pipe(process.stdout);
-//       migrateProcess.stderr.pipe(process.stderr);
-//     });
-//   } catch (error) {
-//     console.error("Error running migrations:", error);
-//   }
-// }
+async function checkAndRunMigration() {
+  try {
+    await new Promise((resolve, reject) => {
+      const migrateProcess = exec(
+        "npx sequelize-cli db:migrate",
+        { env: process.env },
+        (error, stdout, stderr) => {
+          if (error) {
+            console.error("Error:", stderr);
+            resolve();
+          } else {
+            console.log("Migrations completed successfully:", stdout);
+            resolve();
+          }
+        }
+      );
+      migrateProcess.stdout.pipe(process.stdout);
+      migrateProcess.stderr.pipe(process.stderr);
+    });
+  } catch (error) {
+    console.error("Error running migrations:", error);
+  }
+}
